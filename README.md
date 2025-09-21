@@ -1,129 +1,77 @@
-# 🚀 Drain Safe (Single-Repo Safe App)
+# 🚀 Safe {wallet} pro (Single-Repo Safe App)
 
-Drain Safe is a full-stack **Safe{Wallet} dApp** built entirely in **one Next.js repo**.  
-It combines a modern React UI with secure backend logic using **Next.js API routes**,  
-perfect for deployment on **Vercel**.
+Safe Wallet Pro is a comprehensive multi-signature cryptocurrency wallet management application built with React and Express. The application provides a secure interface for managing Safe{Wallet} multi-signature wallets, including transaction proposals, asset management, signer administration, and real-time updates through WebSocket connections. It integrates with WalletConnect for wallet connectivity and supports multiple blockchain networks.
 
----
+# User Preferences
 
-## ✨ Key Features
-- **Single-Repo Architecture** → Frontend and backend live together in one Next.js project.
-- **Safe SDK Integration** → Create, sign, and execute Safe transactions.
-- **Serverless API Routes** → Secure backend logic without a separate server.
-- **Environment Secrets** → Keep API keys & private keys hidden in Vercel.
-- **Ready for Multi-Chain** → Connect to Ethereum, Arbitrum, Polygon, and more.
-- **One-Click Vercel Deployment** → Automatic builds and serverless functions.
+Preferred communication style: Simple, everyday language.
 
----
+# System Architecture
 
-## 📂 Project Structure
-```
-drain-safe/
-│
-├─ pages/
-│   ├─ index.tsx        # Safe App UI
-│   └─ api/
-│       └─ proposeTx.ts # Backend endpoint (serverless)
-│
-├─ package.json
-├─ next.config.js
-└─ .env.local.example   # Environment template
-```
+## Frontend Architecture
+- **Framework**: React 18 with TypeScript and Vite for fast development and building
+- **UI Library**: shadcn/ui components built on Radix UI primitives for accessible, customizable interface components
+- **Styling**: Tailwind CSS with custom CSS variables for theming and dark mode support
+- **State Management**: TanStack Query (React Query) for server state management and caching
+- **Routing**: Wouter for lightweight client-side routing
+- **Form Handling**: React Hook Form with Zod validation for type-safe form management
 
----
+## Backend Architecture
+- **Runtime**: Node.js with Express.js server framework
+- **Language**: TypeScript with ES modules for modern JavaScript features
+- **API Design**: RESTful API with WebSocket support for real-time updates
+- **Authentication**: Basic admin authentication middleware with header-based access control
+- **Error Handling**: Centralized error handling middleware with proper HTTP status codes
 
-## ⚡️ Getting Started
+## Database Architecture
+- **ORM**: Drizzle ORM for type-safe database operations
+- **Database**: PostgreSQL (configured for Neon serverless)
+- **Schema**: Comprehensive multi-signature wallet schema including safes, owners, transactions, confirmations, and assets
+- **Migrations**: Drizzle Kit for database schema migrations and management
 
-### 1. Clone & Install
-```bash
-git clone https://github.com/<alexia795>/drain-safe.git
-cd drain-safe
-npm install
-```
+## Core Data Models
+- **Safes**: Multi-signature wallet containers with threshold and chain information
+- **Safe Owners**: Addresses authorized to sign transactions for a specific safe
+- **Transactions**: Proposed and executed transactions with confirmation tracking
+- **Confirmations**: Individual owner approvals for pending transactions
+- **Assets**: Token balances and metadata for safe wallets
 
-### 2. Configure Environment
-Create a file named **`.env.local`** at the project root:
+## Real-time Communication
+- **WebSocket Server**: Built-in WebSocket support for live updates of transaction status, approvals, and system events
+- **Event Broadcasting**: Real-time notifications to all connected clients for transaction state changes
 
-```env
-ALCHEMY_API_KEY=XuPZE3fUgxJ2AwDHYiSLzBVscOVcg9dy
-SAFE_SIGNER_PRIVATE_KEY=0x867dcd58c9a16c5382dd1790df117b52635e4c6bfc115e157b2c4a024a4ef592
-```
+## Security Features
+- **Multi-signature Support**: Configurable threshold-based transaction approval system
+- **Admin Controls**: Protected admin endpoints for system monitoring and management
+- **Wallet Integration**: WalletConnect v2 integration for secure wallet connectivity
+- **Safe Integration**: Safe{Core} SDK integration for interacting with Safe smart contracts
 
-⚠️ **Do NOT prefix with `NEXT_PUBLIC_`** – these remain server-side only.
+## Development Tools
+- **Build System**: Vite with React plugin for fast development and optimized production builds
+- **Type Safety**: Full TypeScript coverage with shared types between frontend and backend
+- **Development Experience**: Hot module replacement, runtime error overlay, and development banners for Replit environment
 
-### 3. Run Locally
-```bash
-npm run dev
-```
-Visit [http://localhost:3000](http://localhost:3000) in your browser.
+# External Dependencies
 
----
+## Blockchain Infrastructure
+- **Neon Database**: Serverless PostgreSQL database hosting
+- **WalletConnect**: Decentralized protocol for connecting wallets to dApps
+- **Safe Global**: Safe{Core} SDK for multi-signature wallet operations
+- **RPC Providers**: Alchemy and other RPC endpoints for blockchain interaction
 
-## 🧩 Available Scripts
+## UI and Styling
+- **Radix UI**: Accessible, unstyled UI primitives for building design systems
+- **Tailwind CSS**: Utility-first CSS framework for rapid UI development
+- **Lucide React**: Beautiful, customizable SVG icons
+- **shadcn/ui**: Pre-built, customizable component library
 
-| Command         | Description                                     |
-|-----------------|--------------------------------------------------|
-| `npm run dev`   | Starts the app in development mode               |
-| `npm run build` | Builds the production bundle                      |
-| `npm start`     | Runs the production build                         |
-| `npm run lint`  | Runs ESLint to check code quality                 |
+## Development and Build Tools
+- **Replit Integration**: Specialized plugins for Replit development environment
+- **ESBuild**: Fast JavaScript bundler for production builds
+- **PostCSS**: CSS processing with Autoprefixer for browser compatibility
 
----
-
-## 🚀 Deployment (Vercel)
-
-1. Push this repo to **GitHub**.
-2. Go to [Vercel](https://vercel.com) → **New Project** → Import the repo.
-3. Add the same environment variables (`ALCHEMY_API_KEY`, `SAFE_SIGNER_PRIVATE_KEY`)
-   in **Project Settings → Environment Variables**.
-4. Deploy!
-
-Vercel automatically:
-- Serves the frontend at `/`
-- Exposes `/api/*` as secure backend endpoints
-
----
-
-## 🔒 Security Tips
-- Never commit `.env.local` to version control.
-- Use different keys for staging and production.
-- Rotate private keys regularly.
-
----
-
-## 🛠 Tech Stack
-- **Next.js 14** (React 18)
-- **TypeScript**
-- **@safe-global/safe-apps-react-sdk**
-- **@safe-global/protocol-kit**
-- **Vercel Serverless Functions**
-
----
-
-### License
-MIT
-
-## 🚀 Deployment (Vercel)
-
-1. Push this repo to **GitHub**.
-2. Go to [Vercel](https://vercel.com) → **New Project** → Import the repo.
-3. Add the same environment variables (`XuPZE3fUgxJ2AwDHYiSLzBVscOVcg9dy`, `0x867dcd58c9a16c5382dd1790df117b52635e4c6bfc115e157b2c4a024a4ef592`)
-   in **Project Settings → Environment Variables**.
-4. Deploy!
-
-Vercel automatically:
-- Serves the frontend at `/`
-- Exposes `/api/*` as secure backend endpoints
-
-### Example `vercel.json`
-
-```json
-{
-  "builds": [
-    { "src": "package.json", "use": "@vercel/static-build" }
-  ],
-  "routes": [
-    { "src": "/api/(.*)", "dest": "/api/$1" },
-    { "src": "/(.*)", "dest": "/$1" }
-  ]
-}
+## Blockchain Networks
+- **Ethereum Mainnet**: Primary blockchain network support
+- **Arbitrum**: Layer 2 scaling solution support
+- **Polygon**: Alternative blockchain network support
+- **Multi-chain Architecture**: Configurable support for additional EVM-compatible networks
