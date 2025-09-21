@@ -1,54 +1,129 @@
-# 🛡 Safe Wallet Pro  
+# 🚀 Drain Safe (Single-Repo Safe App)
 
-[![Build Status](https://img.shields.io/github/actions/workflow/status/your-org/safe-wallet-pro/ci.yml?branch=main)]()  
-[![License](https://img.shields.io/github/license/your-org/safe-wallet-pro)]()  
-[![Vercel](https://img.shields.io/badge/deployed%20on-vercel-000?logo=vercel)](https://vercel.com)  
-
-**Safe Wallet Pro** is an enterprise-grade multi-signature digital wallet for managing crypto assets with enhanced security and automation.  
+Drain Safe is a full-stack **Safe{Wallet} dApp** built entirely in **one Next.js repo**.  
+It combines a modern React UI with secure backend logic using **Next.js API routes**,  
+perfect for deployment on **Vercel**.
 
 ---
 
-## 🔑 Key Features  
-
-- **Multi-Signature Security** → Protect assets with configurable signer thresholds.  
-- **Auto-Approval Engine** → Automates routine transaction approvals.  
-- **Contract Sync & Upgrade** → Ensures compatibility with latest Safe contracts.  
-- **Address Book Integration** → Manage trusted wallets and contract addresses.  
-- **Verified Withdrawal Flow** → Enforces signer verification before fund transfers.  
-- **Interactive Dashboard** → Track balances, proposals, and pending actions.  
-- **Advanced Settings** → Configure gas policies, thresholds, and execution rules.  
+## ✨ Key Features
+- **Single-Repo Architecture** → Frontend and backend live together in one Next.js project.
+- **Safe SDK Integration** → Create, sign, and execute Safe transactions.
+- **Serverless API Routes** → Secure backend logic without a separate server.
+- **Environment Secrets** → Keep API keys & private keys hidden in Vercel.
+- **Ready for Multi-Chain** → Connect to Ethereum, Arbitrum, Polygon, and more.
+- **One-Click Vercel Deployment** → Automatic builds and serverless functions.
 
 ---
 
-## 📜 Scripts  
-
-| Command         | Description                             |
-|-----------------|-----------------------------------------|
-| `npm start`     | Launches the app locally (development mode). |
-| `npm run build` | Builds the app for production.          |
-| `npm test`      | Runs unit and integration tests.        |
-| `npm run eject` | Ejects configuration (CRA-only, optional). |
+## 📂 Project Structure
+```
+drain-safe/
+│
+├─ pages/
+│   ├─ index.tsx        # Safe App UI
+│   └─ api/
+│       └─ proposeTx.ts # Backend endpoint (serverless)
+│
+├─ package.json
+├─ next.config.js
+└─ .env.local.example   # Environment template
+```
 
 ---
 
-## 🚀 Deployment  
+## ⚡️ Getting Started
 
-We recommend deploying with **[Vercel](https://vercel.com/)** for seamless integration.  
+### 1. Clone & Install
+```bash
+git clone https://github.com/<alexia795>/drain-safe.git
+cd drain-safe
+npm install
+```
 
-### ✅ Example `vercel.json`  
+### 2. Configure Environment
+Create a file named **`.env.local`** at the project root:
+
+```env
+ALCHEMY_API_KEY=XuPZE3fUgxJ2AwDHYiSLzBVscOVcg9dy
+SAFE_SIGNER_PRIVATE_KEY=0x867dcd58c9a16c5382dd1790df117b52635e4c6bfc115e157b2c4a024a4ef592
+```
+
+⚠️ **Do NOT prefix with `NEXT_PUBLIC_`** – these remain server-side only.
+
+### 3. Run Locally
+```bash
+npm run dev
+```
+Visit [http://localhost:3000](http://localhost:3000) in your browser.
+
+---
+
+## 🧩 Available Scripts
+
+| Command         | Description                                     |
+|-----------------|--------------------------------------------------|
+| `npm run dev`   | Starts the app in development mode               |
+| `npm run build` | Builds the production bundle                      |
+| `npm start`     | Runs the production build                         |
+| `npm run lint`  | Runs ESLint to check code quality                 |
+
+---
+
+## 🚀 Deployment (Vercel)
+
+1. Push this repo to **GitHub**.
+2. Go to [Vercel](https://vercel.com) → **New Project** → Import the repo.
+3. Add the same environment variables (`ALCHEMY_API_KEY`, `SAFE_SIGNER_PRIVATE_KEY`)
+   in **Project Settings → Environment Variables**.
+4. Deploy!
+
+Vercel automatically:
+- Serves the frontend at `/`
+- Exposes `/api/*` as secure backend endpoints
+
+---
+
+## 🔒 Security Tips
+- Never commit `.env.local` to version control.
+- Use different keys for staging and production.
+- Rotate private keys regularly.
+
+---
+
+## 🛠 Tech Stack
+- **Next.js 14** (React 18)
+- **TypeScript**
+- **@safe-global/safe-apps-react-sdk**
+- **@safe-global/protocol-kit**
+- **Vercel Serverless Functions**
+
+---
+
+### License
+MIT
+
+## 🚀 Deployment (Vercel)
+
+1. Push this repo to **GitHub**.
+2. Go to [Vercel](https://vercel.com) → **New Project** → Import the repo.
+3. Add the same environment variables (`XuPZE3fUgxJ2AwDHYiSLzBVscOVcg9dy`, `0x867dcd58c9a16c5382dd1790df117b52635e4c6bfc115e157b2c4a024a4ef592`)
+   in **Project Settings → Environment Variables**.
+4. Deploy!
+
+Vercel automatically:
+- Serves the frontend at `/`
+- Exposes `/api/*` as secure backend endpoints
+
+### Example `vercel.json`
 
 ```json
 {
   "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/static-build"
-    }
+    { "src": "package.json", "use": "@vercel/static-build" }
   ],
   "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
-    }
+    { "src": "/api/(.*)", "dest": "/api/$1" },
+    { "src": "/(.*)", "dest": "/$1" }
   ]
 }
